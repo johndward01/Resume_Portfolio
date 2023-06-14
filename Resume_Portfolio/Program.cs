@@ -1,7 +1,42 @@
+using Lucene.Net.Support;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
+using Resume_Portfolio.Data;
+using Resume_Portfolio.Interfaces;
+using Resume_Portfolio.Repositories;
+using Resume_Portfolio.Services;
+using ResumePortfolio;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Configure data protection
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("keys"));
+
+builder.Services.AddControllersWithViews();
+
+// Configure the database context
+var connectionString = configuration["ConnectionStrings:jobsearchdatabase"];
+builder.Services.AddDbContext<JobContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.Parse("8.0.33")));
+
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+builder.Services.AddLogging();
+
+// Register repositories and services
+builder.Services.AddTransient<IJobRepository, JobRepository>();
+builder.Services.AddHttpClient<CompanyService>();
+builder.Services.AddHttpClient<JobApplicationService>();
+
+// Other services...
+
+// Configuration binding
+builder.Services.Configure<AppSettings>(configuration.GetSection("SensitiveConfig"));
 
 var app = builder.Build();
 

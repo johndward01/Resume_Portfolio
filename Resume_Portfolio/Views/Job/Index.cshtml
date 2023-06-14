@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Resume_Portfolio.Models.JobViewModel>
+
+@{
+    ViewBag.Title = "Job Listing";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a asp-action="InsertJob">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Job ID</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Experience Years</th>
+            <th>Remote</th>
+            <th>Company</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.JobID</td>
+                <td>@item.Title</td>
+                <td>@item.Location</td>
+                <td>@item.ExperienceYears</td>
+                <td>@(item.Remote ? "Yes" : "No")</td>
+                <td>@item.CompanyID</td>
+                <td>
+                    <a asp-action="ViewJob" asp-route-id="@item.JobID">View</a> |
+                    <a asp-action="UpdateJob" asp-route-id="@item.JobID">Edit</a> |
+                    <a asp-action="DeleteJob" asp-route-id="@item.JobID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

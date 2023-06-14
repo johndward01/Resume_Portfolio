@@ -1,0 +1,45 @@
+﻿@model Resume_Portfolio.Models.JobViewModel
+
+@{
+    ViewData["Title"] = "Update Job";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="UpdateJobToDatabase" asp-controller="JobController">
+    <input type="hidden" asp-for="JobID" />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ExperienceYears"></label>
+        <input asp-for="ExperienceYears" class="form-control" />
+        <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Remote"></label>
+        <input asp-for="Remote" class="form-control" />
+        <span asp-validation-for="Remote" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CompanyID"></label>
+        <select asp-for="CompanyID" asp-items="@(new SelectList(Model.Companies, "CompanyID", "CompanyName"))">
+            <option value="">-- Select a Company --</option>
+        </select>
+        <span asp-validation-for="CompanyID" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Job</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

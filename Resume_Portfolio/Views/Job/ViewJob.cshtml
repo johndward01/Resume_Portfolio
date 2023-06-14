@@ -1,0 +1,33 @@
+﻿@model Resume_Portfolio.Models.JobViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container">
+    <h2>@Model.Title</h2>
+
+    <h4>Company: <a href="@Model.Job.Company.CompanyWebsite">@Model.Job.Company.CompanyName</a></h4>
+
+    <div>
+        <h5>Job Description:</h5>
+        <p>Location: @Model.Location</p>
+        <p>Years of Experience Required: @Model.ExperienceYears</p>
+        <p>Remote: @(Model.Remote ? "Yes" : "No")</p>
+    </div>
+
+    <div>
+        <h5>Required Skills:</h5>
+        <ul>
+            @foreach (var skill in Model.Job.RequiredSkills)
+            {
+                <li>@skill.RSkill</li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <a href="@Url.Action("UpdateJob", "Job", new { id = Model.JobID })" class="btn btn-primary">Edit</a>
+        <a href="@Url.Action("DeleteJob", "Job", new { id = Model.JobID })" class="btn btn-danger">Delete</a>
+    </div>
+</div>
