@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Resume_Portfolio.Models;
 
-namespace ResumePortfolio;
+namespace Resume_Portfolio;
 
 public class MappingProfile : Profile
 {

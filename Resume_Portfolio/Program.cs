@@ -1,11 +1,11 @@
 using Lucene.Net.Support;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Resume_Portfolio;
 using Resume_Portfolio.Data;
 using Resume_Portfolio.Interfaces;
 using Resume_Portfolio.Repositories;
 using Resume_Portfolio.Services;
-using ResumePortfolio;
 
 var builder = WebApplication.CreateBuilder(args);
 
